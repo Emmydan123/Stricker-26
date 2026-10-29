@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Striker 26 — install &amp; play</title>
+<style>
+  :root{--gold:#ffd34d;--mint:#8ff0b4;}
+  *{box-sizing:border-box;}
+  body{margin:0;min-height:100vh;background:radial-gradient(120% 80% at 50% 0%,#12422a,#05130c 70%);color:#e9f6ee;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.62;-webkit-text-size-adjust:100%;}
+  .wrap{max-width:760px;margin:0 auto;padding:34px 20px 70px;}
+  h1{font-size:clamp(30px,8vw,46px);margin:0 0 4px;letter-spacing:.04em;
+    background:linear-gradient(180deg,#fff,#ffd34d 70%,#f0a52b);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  h1 span{font-size:.5em;vertical-align:super;color:var(--mint);-webkit-text-fill-color:var(--mint);}
+  .sub{opacity:.65;letter-spacing:.2em;font-size:11px;text-transform:uppercase;margin-bottom:26px;}
+  h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);margin:32px 0 10px;}
+  ul,ol{margin:0;padding-left:22px;} li{margin:7px 0;}
+  code{background:rgba(255,255,255,.1);padding:1px 6px;border-radius:5px;font-size:.92em;}
+  .card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:15px 17px;margin:12px 0;}
+  .card b.t{display:block;color:var(--gold);font-size:12px;letter-spacing:.1em;margin-bottom:6px;}
+  .k{display:inline-block;padding:1px 7px;border-radius:6px;background:rgba(255,255,255,.14);font-weight:700;font-size:12px;margin:0 2px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:560px){.grid{grid-template-columns:1fr;}}
+  a{color:var(--mint);}
+  .big{font-weight:800;color:var(--gold);}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;margin:8px 0 2px;}
+  .flow i{font-style:normal;background:rgba(143,240,180,.14);color:var(--mint);padding:5px 10px;border-radius:10px;font-weight:700;}
+  .flow s{text-decoration:none;opacity:.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>STRIKER<span>26</span></h1>
+  <div class="sub">Landscape football · offline &amp; online</div>
+
+  <p><span class="big">Two files, no app store.</span> <code>index.html</code> is the game.
+  <code>multiplayer.html</code> is the join page your opponent opens. Everything is inside them —
+  pitch, players, sound, and the online code.</p>
+
+  <h2>Play on your phone</h2>
+  <div class="card">
+    <b class="t">ANDROID</b>
+    <ol style="margin:0">
+      <li>Open the site in Chrome.</li>
+      <li>Menu <b>⋮</b> → <b>Add to Home screen</b> — it launches full-screen, in landscape.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <b class="t">IPHONE</b>
+    <ol style="margin:0">
+      <li>Open the site in Safari.</li>
+      <li><b>Share → Add to Home Screen</b>.</li>
+      <li>Turn the phone sideways — the game rotates itself and asks for landscape.</li>
+    </ol>
+  </div>
+
+  <h2>Online multiplayer — by code</h2>
+  <div class="flow"><i>1 · Friend: ONLINE → CREATE ROOM</i><s>→</s><i>2 · You: /multiplayer → type code</i><s>→</s><i>3 · Kick off</i></div>
+  <ul>
+    <li><b>You create:</b> main page → <b>ONLINE</b> → <b>CREATE ROOM</b>. You get a 5-letter code like <code>V9DZN</code>.</li>
+    <li><b>Your friend joins:</b> opens <code>your-site.netlify.app/<b>multiplayer</b></code>, types the code, taps CONNECT.</li>
+    <li>The match starts on both phones: creator is the <b>home</b> team, joiner is <b>away</b>.</li>
+    <li>One-tap rematch when the whistle goes. If your friend drops out, the computer takes over their team.</li>
+  </ul>
+
+  <h2>Controls — landscape, stick left, buttons right</h2>
+  <div class="grid">
+    <div class="card">
+      <b class="t">TOUCH</b>
+      <ul style="margin:0;padding-left:18px">
+        <li><b>Left thumb</b> — the round stick moves your player</li>
+        <li><b>PASS</b> — aim with the stick, tap to pass</li>
+        <li><b>SHOOT</b> — hold to power up, release to strike; without the ball it's a tackle</li>
+        <li><b>⚡</b> — sprint (stamina drains, then refills)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b class="t">KEYBOARD</b>
+      <div>P1 <span class="k">W</span><span class="k">A</span><span class="k">S</span><span class="k">D</span> ·
+        <span class="k">F</span> pass · <span class="k">G</span> shoot · <span class="k">H</span> sprint</div>
+      <div style="margin-top:6px">P2 <span class="k">↑</span><span class="k">←</span><span class="k">↓</span><span class="k">→</span> ·
+        <span class="k">J</span> pass · <span class="k">K</span> shoot · <span class="k">L</span> sprint</div>
+      <div style="margin-top:6px"><span class="k">Esc</span> pause</div>
+    </div>
+  </div>
+
+  <h2>What's in the game</h2>
+  <ul>
+    <li>Full 11 v 11 with real top-down players — boots, arms, shirts, squad numbers — 4-3-3 shape, goalkeepers, throw-ins, corners, goal kicks, half time, full-time stats.</li>
+    <li>Three ways to play: <b>vs CPU</b> (easy / normal / hard), <b>2 players on one phone</b> (two pads on one screen), <b>online by code</b>.</li>
+    <li>8 national teams, 3 / 5 / 8 minute matches, rematch in one tap.</li>
+    <li>Plays fully offline (vs CPU and 2-players). Online needs a connection — the phones talk directly to each other.</li>
+  </ul>
+
+  <h2>Tips</h2>
+  <ul>
+    <li>Aim with the stick <i>while</i> holding SHOOT to place your shot.</li>
+    <li>Get closer before you shoot — the keeper narrows the angle fast.</li>
+    <li>Sprint bursts beat defenders, but a tired player loses every 50-50.</li>
+    <li>Without the ball, the man nearest it is yours — press with him.</li>
+  </ul>
+</div>
+</body>
+</html>

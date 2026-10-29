@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#07160e">
+<meta name="description" content="Join an online Striker 26 match with a room code.">
+<title>Striker 26 — Join a Match</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root{
+    --gold:#ffd34d;
+    --mint:#8ff0b4;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;overflow:hidden;background:#04100a;color:#fff;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-user-select:none;user-select:none;overscroll-behavior:none;}
+  body{display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(120% 90% at 50% 0%,#12462c 0%,#071a11 55%,#030c08 100%);
+    padding:calc(10px + var(--safe-t)) 12px calc(10px + var(--safe-b));}
+  /* decorative pitch lines */
+  body::before{content:'';position:fixed;inset:-10%;pointer-events:none;opacity:.14;
+    background-image:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 1px,transparent 1px 90px),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.5) 0 1px,transparent 1px 90px);}
+  .wrap{position:relative;width:min(760px,96vw);max-height:100%;overflow-y:auto;overscroll-behavior:contain;
+    background:linear-gradient(180deg,rgba(18,44,30,.97),rgba(7,24,15,.99));
+    border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:18px 16px 20px;
+    box-shadow:0 26px 70px rgba(0,0,0,.6);text-align:center;}
+  .wrap::-webkit-scrollbar{width:0;}
+  h1{font-size:clamp(26px,7vw,40px);font-weight:900;letter-spacing:.05em;line-height:1;
+    background:linear-gradient(180deg,#fff,#ffd34d 70%,#f0a52b);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 3px 0 rgba(0,0,0,.35));}
+  h1 span{font-size:.5em;vertical-align:super;color:var(--mint);-webkit-text-fill-color:var(--mint);}
+  .tag{font-size:10.5px;letter-spacing:.2em;opacity:.62;margin:6px 0 16px;text-transform:uppercase;}
+  .lbl{font-size:10px;font-weight:800;letter-spacing:.18em;opacity:.62;margin-bottom:6px;text-align:left;}
+  .codeInput{width:100%;text-align:center;font-family:inherit;font-size:clamp(26px,8vw,40px);font-weight:900;
+    letter-spacing:.36em;padding:12px 0 12px 10px;border-radius:16px;background:rgba(0,0,0,.36);
+    border:1px solid rgba(255,255,255,.2);color:#fff;outline:none;text-transform:uppercase;}
+  .codeInput::placeholder{color:rgba(255,255,255,.22);}
+  .codeInput:focus{border-color:#3ade83;box-shadow:0 0 0 3px rgba(58,222,131,.18);}
+  .status{font-size:11px;font-weight:800;letter-spacing:.13em;color:var(--gold);margin:10px 0 4px;min-height:15px;}
+  .status.bad{color:#ff8d7a;}
+  .status.ok{color:var(--mint);}
+  .dotpulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);
+    margin-right:6px;animation:pl 1s infinite;}
+  @keyframes pl{0%,100%{opacity:.25}50%{opacity:1}}
+  button{font-family:inherit;font-weight:900;letter-spacing:.13em;cursor:pointer;}
+  button.big{width:100%;margin-top:10px;padding:15px;border-radius:15px;border:none;font-size:16px;color:#04200f;
+    background:linear-gradient(180deg,#5be08e,#1fae5f 60%,#0e8a49);
+    box-shadow:0 8px 24px rgba(31,174,95,.35),inset 0 1px 0 rgba(255,255,255,.5);}
+  button.big:active{transform:translateY(1px) scale(.995);}
+  button.big:disabled{filter:grayscale(.5) brightness(.8);}
+  button.ghost{width:100%;margin-top:8px;padding:11px;border-radius:13px;background:transparent;
+    border:1px solid rgba(255,255,255,.16);color:#cfe6d9;font-size:11px;}
+  button.ghost:active{background:rgba(255,255,255,.06);}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px;}
+  @media (max-width:560px){.steps{grid-template-columns:1fr;}}
+  .step{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:12px;
+    padding:9px 10px;text-align:left;font-size:11px;line-height:1.45;color:#cfe6d9;}
+  .step b{display:block;color:var(--mint);font-size:10px;letter-spacing:.12em;margin-bottom:3px;}
+  .foot{margin-top:14px;font-size:10px;opacity:.5;letter-spacing:.08em;line-height:1.6;}
+  .foot a{color:var(--mint);text-decoration:none;}
+  .hidden{display:none !important;}
+  @media (orientation:landscape){
+    body{padding:8px 14px;}
+    .wrap{width:min(880px,96vw);padding:12px 16px 14px;}
+    h1{font-size:clamp(20px,5.2vh,30px);}
+    .tag{margin:4px 0 10px;font-size:9px;}
+    .codeInput{font-size:clamp(20px,5.6vh,32px);padding:8px 0 8px 8px;}
+    button.big{padding:11px;font-size:14px;margin-top:8px;}
+    button.ghost{padding:8px;font-size:10px;}
+    .steps{margin:10px 0 2px;}
+    .step{font-size:10px;padding:7px 9px;}
+    .foot{margin-top:9px;font-size:9px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>STRIKER<span>26</span></h1>
+  <p class="tag">Online · join a match</p>
+
+  <div class="lbl" style="text-align:center">ENTER THE ROOM CODE</div>
+  <input id="code" class="codeInput" maxlength="5" inputmode="text" autocapitalize="characters"
+         autocomplete="off" autocorrect="off" spellcheck="false" placeholder="·····" aria-label="Room code">
+  <div id="status" class="status"></div>
+
+  <button id="btnConnect" class="big">CONNECT</button>
+  <button id="btnSolo" class="ghost">PLAY ON THIS PHONE INSTEAD</button>
+
+  <div class="steps">
+    <div class="step"><b>1 · YOUR FRIEND</b>Opens the game, picks <i>ONLINE</i> → <i>CREATE ROOM</i> and reads out the 5-letter code.</div>
+    <div class="step"><b>2 · YOU</b>Type that code above and tap CONNECT. Your friend is the home team.</div>
+    <div class="step"><b>3 · KICK OFF</b>Once you're connected, the pitch loads straight away — stick on the left, buttons on the right.</div>
+  </div>
+
+  <div class="foot">
+    No code yet? <a href="index.html">Open the game</a> and create a room.<br>
+    Works phone-to-phone over the internet. A connection is needed to pair up.
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var codeEl = document.getElementById('code');
+  var statusEl = document.getElementById('status');
+  var btn = document.getElementById('btnConnect');
+
+  function setStatus(text, kind, spin) {
+    statusEl.className = 'status' + (kind ? ' ' + kind : '');
+    statusEl.innerHTML = (spin ? '<span class="dotpulse"></span>' : '') + text;
+  }
+
+  // pre-fill from ?room=ABCDE or ?code=ABCDE
+  try {
+    var q = new URLSearchParams(location.search);
+    var pre = (q.get('room') || q.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
+    if (pre) codeEl.value = pre;
+  } catch (e) {}
+
+  codeEl.addEventListener('input', function () {
+    codeEl.value = codeEl.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5);
+    setStatus('', '', false);
+  });
+
+  function connect() {
+    var code = (codeEl.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (code.length < 4) {
+      setStatus('THAT CODE IS TOO SHORT — IT SHOULD BE 5 CHARACTERS', 'bad', false);
+      codeEl.focus();
+      return;
+    }
+    btn.disabled = true;
+    setStatus('OPENING THE PITCH…', '', true);
+    // hand the code to the game, which does the peer-to-peer handshake
+    setTimeout(function () {
+      location.href = 'index.html?join=' + encodeURIComponent(code);
+    }, 320);
+  }
+
+  btn.addEventListener('click', connect);
+  codeEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); connect(); }
+  });
+  document.getElementById('btnSolo').addEventListener('click', function () {
+    location.href = 'index.html';
+  });
+
+  // if the page was opened with a code, put the cursor there ready to go
+  if (codeEl.value.length === 5) setStatus('CODE READY — TAP CONNECT', 'ok', false);
+  setTimeout(function () { try { codeEl.focus(); } catch (e) {} }, 250);
+})();
+</script>
+</body>
+</html>
